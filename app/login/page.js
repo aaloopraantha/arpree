@@ -1,19 +1,60 @@
 "use client";
 
+import { useState } from "react";
+import { supabase } from "../../lib/supabaseClient";
+
 export default function Login() {
+  const [loading, setLoading] = useState(false);
+
+  const loginWithGoogle = async () => {
+    setLoading(true);
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`
+      }
+    });
+
+    if (error) alert(error.message);
+
+    setLoading(false);
+  };
+
+  const loginWithEmail = async () => {
+    const email = prompt("Enter your email:");
+    if (!email) return;
+
+    setLoading(true);
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: `${window.location.origin}/dashboard`
+      }
+    });
+
+    if (error) alert(error.message);
+    else alert("Check your email for login link");
+
+    setLoading(false);
+  };
+
   return (
     <main style={styles.page}>
       <div style={styles.card}>
-        <h1>Login (Demo Mode)</h1>
-        <p>Authentication will be enabled next.</p>
+        <h1>Arpree Login</h1>
+        <p>TEF / TCF Practice Platform</p>
 
-        <button style={styles.btn}>
-          Continue with Google (coming soon)
+        <button onClick={loginWithGoogle} style={styles.google}>
+          Continue with Google
         </button>
 
-        <button style={styles.btn2}>
-          Continue with Email (coming soon)
+        <button onClick={loginWithEmail} style={styles.email}>
+          Continue with Email
         </button>
+
+        {loading && <p>Loading...</p>}
       </div>
     </main>
   );
@@ -36,22 +77,24 @@ const styles = {
     width: "320px",
     border: "1px solid #E5E7EB"
   },
-  btn: {
+  google: {
     width: "100%",
     padding: "12px",
     marginTop: "20px",
     background: "#0B1F3B",
     color: "white",
     border: "none",
-    borderRadius: "10px"
+    borderRadius: "10px",
+    cursor: "pointer"
   },
-  btn2: {
+  email: {
     width: "100%",
     padding: "12px",
     marginTop: "10px",
     background: "#C81D25",
     color: "white",
     border: "none",
-    borderRadius: "10px"
+    borderRadius: "10px",
+    cursor: "pointer"
   }
 };
