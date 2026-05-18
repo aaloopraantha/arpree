@@ -32,6 +32,12 @@ export default function Home() {
           Realistic TEF and TCF-style practice tests, Mini Bites, and CLB-focused preparation.
         </p>
 
-        <div style={styles.heroButtons}>
-          <button style={styles.primaryButtonLarge}>
-};
+<div style={styles.heroButtons}>
+  <button style={styles.primaryButtonLarge}>
+    Start Free Simulation
+  </button>
+
+  <button style={styles.secondaryButtonLarge}>
+    Explore Mini Bites
+  </button>
+</div>
