@@ -4,7 +4,7 @@ export default function Home() {
       
       {/* TOP NAV */}
       <header style={styles.nav}>
-        <div style={styles.logo}>Arpree</div>
+        <div style={styles.logo}>arpree</div>
         <div style={styles.navRight}>
           <button style={styles.navBtn}>Login</button>
           <button style={styles.navBtnPrimary}>Start Practice</button>
@@ -74,7 +74,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer style={styles.footer}>
-        © {new Date().getFullYear()} Arpree — TEF/TCF Simulation Platform
+        © {new Date().getFullYear()} arpree — TEF/TCF Simulation Platform
       </footer>
     </main>
   );
