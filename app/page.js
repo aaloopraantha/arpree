@@ -17,7 +17,7 @@ export default function Home() {
         </h1>
 
         <p style={styles.subtitle}>
-          CLB-based simulations, Mini Bites, and real exam-style practice for Canada immigration.
+          CLB-based simulations, Mini Bites, and real exam-style practice tests.
         </p>
 
         <button style={styles.button}>
