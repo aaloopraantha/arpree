@@ -24,7 +24,7 @@ export default function Home() {
         {/* DESCRIPTION */}
         <p style={{ fontSize: "20px", color: "#aaa", marginTop: "20px", maxWidth: "700px" }}>
           Practice real TEF and TCF exams with structured reading, listening, writing,
-          and speaking training — plus future AI feedback tools.
+          and speaking training.
         </p>
 
         {/* BUTTONS */}
@@ -73,7 +73,7 @@ export default function Home() {
 
           <div style={{ background: "#111", padding: "20px", borderRadius: "15px" }}>
             <h2>Writing & Speaking</h2>
-            <p style={{ color: "#aaa" }}>Future AI feedback system</p>
+            <p style={{ color: "#aaa" }}>With feedback</p>
           </div>
 
         </div>
