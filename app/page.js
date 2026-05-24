@@ -9,7 +9,7 @@ export default function HomePage() {
     <main style={styles.page}>
       {/* HERO */}
       <section style={styles.hero}>
-        <p style={styles.kicker}>Conceived in 2021</p>
+        <p style={styles.kicker}>Since 2021</p>
 
         <h1 style={styles.title}>
           Master TEF & TCF with a Real Exam Simulation Platform
