@@ -1,34 +1,36 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { supabase } from '../../lib/supabase'
+import { useRouter } from 'next/navigation'
 
-export default function DashboardPage() {
+export default function Dashboard() {
   const router = useRouter()
-
-  const [email, setEmail] = useState('')
+  const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function checkUser() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
+    async function getUser() {
+      const { data } = await supabase.auth.getUser()
 
-      if (!user) {
+      if (!data?.user) {
         router.push('/login')
       } else {
-        setEmail(user.email)
+        setUser(data.user)
       }
+
+      setLoading(false)
     }
 
-    checkUser()
+    getUser()
   }, [])
 
-  async function handleLogout() {
+  async function logout() {
     await supabase.auth.signOut()
     router.push('/')
   }
+
+  if (loading) return null
 
   return (
     <main
@@ -36,143 +38,61 @@ export default function DashboardPage() {
         background: '#000',
         color: '#fff',
         minHeight: '100vh',
-        padding: '40px',
+        padding: '60px',
       }}
     >
-      <h1 style={{ fontSize: '40px' }}>
-        Student Dashboard
-      </h1>
-
-      <p
-        style={{
-          marginTop: '20px',
-          color: '#aaa',
-        }}
-      >
-        Logged in as:
-      </p>
-
-      <p>{email}</p>
-
-      <button
-        onClick={handleLogout}
-        style={{
-          marginTop: '30px',
-          padding: '10px 20px',
-          background: '#fff',
-          color: '#000',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-      >
-        Logout
-      </button>
+      <h1 style={{ fontSize: '40px' }}>Dashboard</h1>
 
       <div
         style={{
-          marginTop: '60px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '20px',
+          marginTop: '40px',
+          background: '#111',
+          padding: '30px',
+          borderRadius: '12px',
         }}
       >
-        {/* READING */}
-        <div
-          style={{
-            background: '#111',
-            padding: '20px',
-            borderRadius: '12px',
-          }}
-        >
-          <h2>Reading Practice</h2>
+        <p>Email</p>
+        <p style={{ color: '#aaa' }}>{user?.email}</p>
 
-          <p
+        <div style={{ marginTop: '30px' }}>
+          <p>Progress</p>
+
+          <div
             style={{
-              color: '#aaa',
-              marginTop: '10px',
+              width: '100%',
+              height: '10px',
+              background: '#222',
+              borderRadius: '10px',
+              overflow: 'hidden',
             }}
           >
-            Start TEF/TCF reading exercises
+            <div
+              style={{
+                width: '35%',
+                height: '100%',
+                background: '#fff',
+              }}
+            />
+          </div>
+
+          <p style={{ color: '#aaa', marginTop: '10px' }}>
+            35% Complete (Mock Data)
           </p>
-
-          <a
-            href="/practice"
-            style={{
-              display: 'inline-block',
-              marginTop: '20px',
-              background: '#fff',
-              color: '#000',
-              padding: '10px 20px',
-              textDecoration: 'none',
-            }}
-          >
-            Start Practice
-          </a>
         </div>
 
-        {/* LISTENING */}
-        <div
+        <button
+          onClick={logout}
           style={{
-            background: '#111',
-            padding: '20px',
-            borderRadius: '12px',
+            marginTop: '40px',
+            background: '#fff',
+            color: '#000',
+            padding: '10px 20px',
+            border: 'none',
+            cursor: 'pointer',
           }}
         >
-          <h2>Listening Practice</h2>
-
-          <p
-            style={{
-              color: '#aaa',
-              marginTop: '10px',
-            }}
-          >
-            Audio-based TEF/TCF exercises
-          </p>
-
-          <button
-            style={{
-              marginTop: '20px',
-              background: '#333',
-              color: '#fff',
-              padding: '10px 20px',
-              border: 'none',
-            }}
-          >
-            Coming Soon
-          </button>
-        </div>
-
-        {/* WRITING */}
-        <div
-          style={{
-            background: '#111',
-            padding: '20px',
-            borderRadius: '12px',
-          }}
-        >
-          <h2>Writing AI Feedback</h2>
-
-          <p
-            style={{
-              color: '#aaa',
-              marginTop: '10px',
-            }}
-          >
-            AI corrections for TEF writing tasks
-          </p>
-
-          <button
-            style={{
-              marginTop: '20px',
-              background: '#333',
-              color: '#fff',
-              padding: '10px 20px',
-              border: 'none',
-            }}
-          >
-            Coming Soon
-          </button>
-        </div>
+          Logout
+        </button>
       </div>
     </main>
   )
