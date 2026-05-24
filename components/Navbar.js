@@ -1,4 +1,35 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabase'
+import { useRouter } from 'next/navigation'
+
 export default function Navbar() {
+  const router = useRouter()
+  const [user, setUser] = useState(null)
+
+  useEffect(() => {
+    async function getUser() {
+      const { data } = await supabase.auth.getUser()
+      setUser(data?.user || null)
+    }
+
+    getUser()
+
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      getUser()
+    })
+
+    return () => {
+      listener.subscription.unsubscribe()
+    }
+  }, [])
+
+  async function logout() {
+    await supabase.auth.signOut()
+    router.push('/')
+  }
+
   return (
     <nav
       style={{
@@ -13,33 +44,45 @@ export default function Navbar() {
         backgroundColor: '#000',
       }}
     >
-      <h1
-        style={{
-          fontSize: '24px',
-          fontWeight: 500,
-        }}
-      >
-        Arpree
-      </h1>
-
+      {/* LOGO */}
       <div
         style={{
-          display: 'flex',
-          gap: '25px',
-          alignItems: 'center',
+          fontSize: '20px',
+          fontWeight: 500,
+          cursor: 'pointer',
         }}
+        onClick={() => router.push('/')}
       >
+        ARPREE
+      </div>
+
+      {/* NAV LINKS */}
+      <div style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
         <a href="/explore" style={linkStyle}>
           Explore
         </a>
 
-        <a href="/login" style={linkStyle}>
-          Login
-        </a>
+        {!user ? (
+          <>
+            <a href="/login" style={linkStyle}>
+              Login
+            </a>
 
-        <a href="/register" style={buttonStyle}>
-          Get Started
-        </a>
+            <a href="/register" style={buttonStyle}>
+              Get Started
+            </a>
+          </>
+        ) : (
+          <>
+            <a href="/dashboard" style={linkStyle}>
+              Dashboard
+            </a>
+
+            <button onClick={logout} style={buttonStyle}>
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </nav>
   )
@@ -55,7 +98,7 @@ const buttonStyle = {
   background: '#fff',
   color: '#000',
   padding: '10px 18px',
-  textDecoration: 'none',
   fontSize: '14px',
-  fontWeight: 500,
+  border: 'none',
+  cursor: 'pointer',
 }
