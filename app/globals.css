@@ -2,13 +2,31 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  padding: 0;
   background: #000;
   color: #fff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Smooth page entry animation */
+body {
+  animation: pageLoad 0.6s ease-out;
+}
+
+@keyframes pageLoad {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 a {
@@ -18,4 +36,18 @@ a {
 
 button {
   font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+/* Hover lift effect (Apple style subtle interaction) */
+button:hover {
+  transform: translateY(-1px);
+}
+
+div[data-card="true"] {
+  transition: all 0.2s ease;
+}
+
+div[data-card="true"]:hover {
+  transform: translateY(-2px);
 }
