@@ -70,8 +70,15 @@ export default function RegisterPage() {
           Continue with Google
         </button>
 
+        {/* FIXED LOGIN LINK */}
         <p style={styles.footerText}>
-          Already have an account? Login
+          Already have an account?{' '}
+          <span
+            onClick={() => router.push('/login')}
+            style={styles.link}
+          >
+            Login
+          </span>
         </p>
       </div>
     </main>
@@ -156,5 +163,11 @@ const styles = {
     fontSize: 12,
     color: 'rgba(255,255,255,0.5)',
     textAlign: 'center',
+  },
+
+  link: {
+    color: '#fff',
+    cursor: 'pointer',
+    textDecoration: 'underline',
   },
 }
