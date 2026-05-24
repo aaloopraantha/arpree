@@ -18,16 +18,25 @@ export default function HomePage() {
           borderBottom: '1px solid #111',
         }}
       >
-        <h1 style={{ fontSize: '28px' }}>
-          Arpree
-        </h1>
+        <h1 style={{ fontSize: '28px' }}>Arpree</h1>
 
         <div
           style={{
             display: 'flex',
             gap: '20px',
+            alignItems: 'center',
           }}
         >
+          <a
+            href="/explore"
+            style={{
+              color: '#aaa',
+              textDecoration: 'none',
+            }}
+          >
+            Explore
+          </a>
+
           <a
             href="/login"
             style={{
@@ -80,7 +89,7 @@ export default function HomePage() {
             fontWeight: 'bold',
           }}
         >
-          Master TEF & TCF Canada With AI-Powered Practice
+          Master TEF & TCF With Real Exam Simulations
         </h1>
 
         <p
@@ -91,8 +100,8 @@ export default function HomePage() {
             lineHeight: '1.6',
           }}
         >
-          Practice reading, listening, writing, and speaking with
-          real exam simulations and instant AI feedback.
+          Practice reading, listening, writing, and speaking with structured
+          exam-style tests and AI-powered feedback.
         </p>
 
         <div
@@ -120,7 +129,7 @@ export default function HomePage() {
           </a>
 
           <a
-            href="/login"
+            href="/explore"
             style={{
               border: '1px solid #333',
               color: '#fff',
@@ -130,7 +139,7 @@ export default function HomePage() {
               fontSize: '18px',
             }}
           >
-            Login
+            View Plans
           </a>
         </div>
       </section>
@@ -150,7 +159,7 @@ export default function HomePage() {
             marginBottom: '60px',
           }}
         >
-          Everything You Need To Succeed
+          Everything You Need To Pass TEF & TCF
         </h2>
 
         <div
@@ -162,28 +171,28 @@ export default function HomePage() {
         >
           {[
             {
-              title: 'Reading Practice',
-              desc: 'Interactive TEF & TCF reading simulations with scoring.',
+              title: 'Real Exam Simulation',
+              desc: 'Practice full TEF/TCF-style tests with structured sections.',
             },
             {
-              title: 'Listening Practice',
-              desc: 'Audio exercises that mirror the real exam structure.',
+              title: 'Reading & Listening',
+              desc: 'Immersive comprehension exercises based on real exam patterns.',
             },
             {
-              title: 'AI Writing Feedback',
-              desc: 'Instant corrections and score predictions for writing tasks.',
+              title: 'Writing AI Feedback',
+              desc: 'Get instant scoring and corrections for writing tasks.',
             },
             {
-              title: 'Speaking Preparation',
-              desc: 'Prepare for oral interviews with guided prompts.',
+              title: 'Speaking Practice',
+              desc: 'Prepare oral responses with guided prompts.',
             },
             {
-              title: 'Performance Tracking',
-              desc: 'Track your progress and weak areas over time.',
+              title: 'Quick Bites',
+              desc: 'Small paid practice exams for fast improvement.',
             },
             {
-              title: 'Canada Immigration Focus',
-              desc: 'Built specifically for TEF Canada & TCF Canada success.',
+              title: 'Structured Learning Paths',
+              desc: 'CLB-based progression from A1 to C2.',
             },
           ].map((feature) => (
             <div
@@ -195,9 +204,7 @@ export default function HomePage() {
                 border: '1px solid #1f1f1f',
               }}
             >
-              <h3 style={{ fontSize: '24px' }}>
-                {feature.title}
-              </h3>
+              <h3 style={{ fontSize: '22px' }}>{feature.title}</h3>
 
               <p
                 style={{
@@ -226,7 +233,7 @@ export default function HomePage() {
             lineHeight: '1.2',
           }}
         >
-          Start Your TEF/TCF Journey Today
+          Start Preparing for Canadian Immigration Today
         </h2>
 
         <p
@@ -236,7 +243,7 @@ export default function HomePage() {
             fontSize: '20px',
           }}
         >
-          Join future Canadian immigrants improving their French scores.
+          Join students preparing for TEF & TCF success worldwide.
         </p>
 
         <a
