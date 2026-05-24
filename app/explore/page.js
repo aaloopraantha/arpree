@@ -21,8 +21,8 @@ export default function ExplorePage() {
 
         <div style={grid}>
           {levels.map((l) => (
-            <div key={l.level} style={card}>
-              <h3>{l.level}</h3>
+            <div key={l.level} data-card="true" style={card}>
+              <h3 style={{ fontWeight: 500 }}>{l.level}</h3>
               <p style={muted}>{l.desc}</p>
               <p>${l.price}</p>
 
@@ -34,14 +34,14 @@ export default function ExplorePage() {
         </div>
       </section>
 
-      {/* SUBS */}
+      {/* SUBSCRIPTION */}
       <section style={{ marginTop: 80 }}>
         <h2 style={title}>Subscription Plans</h2>
 
         <div style={grid}>
           {plans.map((p) => (
-            <div key={p.title} style={card}>
-              <h3>{p.title}</h3>
+            <div key={p.title} data-card="true" style={card}>
+              <h3 style={{ fontWeight: 500 }}>{p.title}</h3>
               <p style={muted}>{p.levels}</p>
               <p>{p.price}</p>
 
@@ -71,18 +71,20 @@ const plans = [
   { title: 'CLB 7', levels: 'A1 - C2', price: '$19.99' },
 ]
 
-const card = {
-  background: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(255,255,255,0.08)',
-  borderRadius: '18px',
-  padding: 20,
-}
-
 const grid = {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
   gap: 16,
   marginTop: 20,
+}
+
+const card = {
+  background: 'rgba(255,255,255,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '18px',
+  padding: 20,
+  backdropFilter: 'blur(14px)',
+  transition: 'all 0.25s ease',
 }
 
 const btn = {
@@ -92,6 +94,7 @@ const btn = {
   color: '#fff',
   padding: '10px 14px',
   borderRadius: '14px',
+  cursor: 'pointer',
 }
 
 const title = {
