@@ -3,32 +3,34 @@
 import { useEffect, useState } from 'react'
 
 export default function ExamPage() {
-  const [step, setStep] = useState('start') 
+  const [step, setStep] = useState('start')
   const [index, setIndex] = useState(0)
   const [score, setScore] = useState(0)
-  const [time, setTime] = useState(60)
+  const [time, setTime] = useState(90)
   const [finished, setFinished] = useState(false)
 
-  const questions = [
-    {
-      type: 'reading',
-      question: 'What is the capital of Canada?',
-      options: ['Toronto', 'Ottawa', 'Montreal', 'Vancouver'],
-      answer: 'Ottawa',
-    },
-    {
-      type: 'reading',
-      question: 'TEF is mainly used for?',
-      options: ['Tourism', 'Immigration', 'Sports', 'Driving'],
-      answer: 'Immigration',
-    },
-    {
-      type: 'reading',
-      question: 'Which language is tested in TEF?',
-      options: ['English', 'French', 'Spanish', 'German'],
-      answer: 'French',
-    },
-  ]
+  const exam = {
+    passage:
+      "Le Canada est un pays bilingue où le français et l'anglais sont les langues officielles. Le français est principalement parlé au Québec et dans certaines régions du Nouveau-Brunswick. Le système d'immigration canadien utilise des tests de langue comme le TEF et le TCF pour évaluer les compétences des candidats.",
+
+    questions: [
+      {
+        question: "Quelle est une langue officielle du Canada ?",
+        options: ["Espagnol", "Français", "Italien", "Allemand"],
+        answer: "Français",
+      },
+      {
+        question: "Où le français est-il principalement parlé ?",
+        options: ["Ontario", "Québec", "Alberta", "Colombie-Britannique"],
+        answer: "Québec",
+      },
+      {
+        question: "À quoi servent les tests TEF et TCF ?",
+        options: ["Tourisme", "Immigration", "Sport", "Éducation primaire"],
+        answer: "Immigration",
+      },
+    ],
+  }
 
   useEffect(() => {
     if (step !== 'exam' || finished) return
@@ -47,11 +49,11 @@ export default function ExamPage() {
 
   function startExam() {
     setStep('exam')
-    setTime(60)
+    setTime(90)
   }
 
   function selectAnswer(option) {
-    if (option === questions[index].answer) {
+    if (option === exam.questions[index].answer) {
       setScore((s) => s + 1)
     }
     nextQuestion()
@@ -60,9 +62,9 @@ export default function ExamPage() {
   function nextQuestion() {
     const next = index + 1
 
-    if (next < questions.length) {
+    if (next < exam.questions.length) {
       setIndex(next)
-      setTime(60)
+      setTime(90)
     } else {
       setFinished(true)
       setStep('result')
@@ -73,7 +75,7 @@ export default function ExamPage() {
     setStep('start')
     setIndex(0)
     setScore(0)
-    setTime(60)
+    setTime(90)
     setFinished(false)
   }
 
@@ -82,13 +84,14 @@ export default function ExamPage() {
     return (
       <main style={styles.container}>
         <div style={styles.card}>
-          <h1 style={styles.title}>TEF / TCF Exam Simulation</h1>
+          <h1 style={styles.title}>TEF Reading Simulation</h1>
+
           <p style={styles.text}>
-            Full timed exam with reading section
+            Read the passage and answer questions like real exam conditions.
           </p>
 
           <button style={styles.button} onClick={startExam}>
-            Start Exam
+            Start Reading Test
           </button>
         </div>
       </main>
@@ -100,18 +103,18 @@ export default function ExamPage() {
     return (
       <main style={styles.container}>
         <div style={styles.card}>
-          <h1 style={styles.title}>Exam Completed</h1>
+          <h1 style={styles.title}>Test Completed</h1>
 
           <p style={styles.text}>
-            Score: {score} / {questions.length}
+            Score: {score} / {exam.questions.length}
           </p>
 
           <p style={styles.text}>
-            Accuracy: {Math.round((score / questions.length) * 100)}%
+            Accuracy: {Math.round((score / exam.questions.length) * 100)}%
           </p>
 
           <button style={styles.button} onClick={restart}>
-            Restart Exam
+            Restart
           </button>
         </div>
       </main>
@@ -123,20 +126,26 @@ export default function ExamPage() {
     <main style={styles.container}>
       <div style={styles.examBox}>
 
+        {/* PASSAGE */}
+        <div style={styles.passageBox}>
+          <h3 style={{ fontWeight: 500 }}>Passage</h3>
+          <p style={styles.passage}>{exam.passage}</p>
+        </div>
+
         {/* TOP BAR */}
         <div style={styles.topBar}>
-          <p>Question {index + 1} / {questions.length}</p>
+          <p>Question {index + 1} / {exam.questions.length}</p>
           <p>Time: {time}s</p>
         </div>
 
         {/* QUESTION */}
         <h2 style={{ fontWeight: 500 }}>
-          {questions[index].question}
+          {exam.questions[index].question}
         </h2>
 
         {/* OPTIONS */}
         <div style={{ marginTop: 20 }}>
-          {questions[index].options.map((opt) => (
+          {exam.questions[index].options.map((opt) => (
             <button
               key={opt}
               onClick={() => selectAnswer(opt)}
@@ -162,23 +171,28 @@ const styles = {
     padding: 20,
   },
 
-  card: {
+  examBox: {
+    width: '100%',
+    maxWidth: 850,
     background: 'rgba(255,255,255,0.04)',
     border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: 18,
     padding: 30,
-    textAlign: 'center',
     backdropFilter: 'blur(14px)',
   },
 
-  examBox: {
-    width: '100%',
-    maxWidth: 700,
-    background: 'rgba(255,255,255,0.04)',
+  passageBox: {
+    background: 'rgba(255,255,255,0.03)',
     border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: 18,
-    padding: 30,
-    backdropFilter: 'blur(14px)',
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 20,
+  },
+
+  passage: {
+    color: 'rgba(255,255,255,0.7)',
+    lineHeight: 1.6,
+    fontSize: 15,
   },
 
   topBar: {
