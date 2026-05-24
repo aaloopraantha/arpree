@@ -5,195 +5,47 @@ import { useRouter } from 'next/navigation'
 export default function ExplorePage() {
   const router = useRouter()
 
-  const quickBites = [
-    {
-      level: 'A1',
-      price: 1,
-      desc: 'Basic daily life French (food, greetings, travel)',
-    },
-    {
-      level: 'A2',
-      price: 1.5,
-      desc: 'Simple conversations and workplace basics',
-    },
-    {
-      level: 'B1',
-      price: 2,
-      desc: 'Intermediate immigration-level French practice',
-    },
-    {
-      level: 'B2',
-      price: 3,
-      desc: 'Advanced TEF/TCF reading + listening tasks',
-    },
-    {
-      level: 'C1',
-      price: 4,
-      desc: 'Complex academic + professional French',
-    },
-    {
-      level: 'C2',
-      price: 5,
-      desc: 'Near-native exam simulation (expert level)',
-    },
-  ]
-
-  const subscriptions = [
-    {
-      title: 'CLB 5 Plan',
-      levels: 'A1 → B1',
-      price: '9.99 / month',
-      desc: 'Basic immigration preparation path',
-    },
-    {
-      title: 'CLB 6 Plan',
-      levels: 'A1 → B2',
-      price: '14.99 / month',
-      desc: 'Full TEF/TCF preparation system',
-    },
-    {
-      title: 'CLB 7 Plan (Premium)',
-      levels: 'A1 → C2',
-      price: '19.99 / month',
-      desc: 'Complete exam mastery + AI feedback',
-    },
-  ]
-
   return (
-    <main
-      style={{
-        background: '#000',
-        color: '#fff',
-        minHeight: '100vh',
-        padding: '60px',
-      }}
-    >
-      {/* HEADER */}
-      <h1 style={{ fontSize: '40px' }}>
-        Choose Your Learning Path
+    <main style={{ minHeight: '100vh', background: '#000', padding: 60 }}>
+      <h1 style={{ fontSize: 42, fontWeight: 500 }}>
+        Learning Paths
       </h1>
 
-      <p style={{ color: '#aaa', marginTop: '10px' }}>
-        Practice TEF & TCF like a real exam system
+      <p style={{ color: 'rgba(255,255,255,0.6)' }}>
+        Choose your preparation level
       </p>
 
       {/* QUICK BITES */}
-      <section style={{ marginTop: '60px' }}>
-        <h2 style={{ fontSize: '28px' }}>
-          ⚡ Quick Bites (Pay Per Practice)
-        </h2>
+      <section style={{ marginTop: 50 }}>
+        <h2 style={title}>Quick Bites</h2>
 
-        <p style={{ color: '#888', marginTop: '5px' }}>
-          Instant full exam simulations (Reading + Listening + Writing + Speaking)
-        </p>
+        <div style={grid}>
+          {levels.map((l) => (
+            <div key={l.level} style={card}>
+              <h3>{l.level}</h3>
+              <p style={muted}>{l.desc}</p>
+              <p>${l.price}</p>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '20px',
-            marginTop: '25px',
-          }}
-        >
-          {quickBites.map((item) => (
-            <div
-              key={item.level}
-              style={{
-                background: '#111',
-                padding: '20px',
-                borderRadius: '12px',
-                border: '1px solid #222',
-              }}
-            >
-              <h3 style={{ fontSize: '22px' }}>
-                {item.level}
-              </h3>
-
-              <p style={{ color: '#aaa', marginTop: '10px' }}>
-                {item.desc}
-              </p>
-
-              <p style={{ marginTop: '15px' }}>
-                💰 ${item.price}
-              </p>
-
-              <button
-                style={{
-                  marginTop: '15px',
-                  width: '100%',
-                  padding: '10px',
-                  background: '#fff',
-                  color: '#000',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontWeight: 'bold',
-                }}
-                onClick={() => router.push('/dashboard')}
-              >
-                Start Quick Bite
+              <button style={btn} onClick={() => router.push('/dashboard')}>
+                Start
               </button>
             </div>
           ))}
         </div>
       </section>
 
-      {/* SUBSCRIPTIONS */}
-      <section style={{ marginTop: '80px' }}>
-        <h2 style={{ fontSize: '28px' }}>
-          📚 Subscription Plans
-        </h2>
+      {/* SUBS */}
+      <section style={{ marginTop: 80 }}>
+        <h2 style={title}>Subscription Plans</h2>
 
-        <p style={{ color: '#888', marginTop: '5px' }}>
-          Full structured TEF/TCF preparation paths
-        </p>
+        <div style={grid}>
+          {plans.map((p) => (
+            <div key={p.title} style={card}>
+              <h3>{p.title}</h3>
+              <p style={muted}>{p.levels}</p>
+              <p>{p.price}</p>
 
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '20px',
-            marginTop: '25px',
-          }}
-        >
-          {subscriptions.map((plan) => (
-            <div
-              key={plan.title}
-              style={{
-                background: '#111',
-                padding: '25px',
-                borderRadius: '12px',
-                border: '1px solid #222',
-              }}
-            >
-              <h3 style={{ fontSize: '22px' }}>
-                {plan.title}
-              </h3>
-
-              <p style={{ color: '#aaa', marginTop: '10px' }}>
-                Levels: {plan.levels}
-              </p>
-
-              <p style={{ marginTop: '10px' }}>
-                {plan.desc}
-              </p>
-
-              <p style={{ marginTop: '15px' }}>
-                💳 {plan.price}
-              </p>
-
-              <button
-                style={{
-                  marginTop: '15px',
-                  width: '100%',
-                  padding: '10px',
-                  background: '#fff',
-                  color: '#000',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontWeight: 'bold',
-                }}
-                onClick={() => router.push('/register')}
-              >
+              <button style={btn} onClick={() => router.push('/register')}>
                 Subscribe
               </button>
             </div>
@@ -202,4 +54,51 @@ export default function ExplorePage() {
       </section>
     </main>
   )
+}
+
+const levels = [
+  { level: 'A1', price: 1, desc: 'Basic French communication' },
+  { level: 'A2', price: 1.5, desc: 'Simple conversations' },
+  { level: 'B1', price: 2, desc: 'Intermediate exam prep' },
+  { level: 'B2', price: 3, desc: 'Advanced comprehension' },
+  { level: 'C1', price: 4, desc: 'Professional level' },
+  { level: 'C2', price: 5, desc: 'Native-like mastery' },
+]
+
+const plans = [
+  { title: 'CLB 5', levels: 'A1 - B1', price: '$9.99' },
+  { title: 'CLB 6', levels: 'A1 - B2', price: '$14.99' },
+  { title: 'CLB 7', levels: 'A1 - C2', price: '$19.99' },
+]
+
+const card = {
+  background: 'rgba(255,255,255,0.04)',
+  border: '1px solid rgba(255,255,255,0.08)',
+  borderRadius: '18px',
+  padding: 20,
+}
+
+const grid = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+  gap: 16,
+  marginTop: 20,
+}
+
+const btn = {
+  marginTop: 10,
+  background: 'rgba(255,255,255,0.08)',
+  border: '1px solid rgba(255,255,255,0.1)',
+  color: '#fff',
+  padding: '10px 14px',
+  borderRadius: '14px',
+}
+
+const title = {
+  fontSize: 22,
+  fontWeight: 500,
+}
+
+const muted = {
+  color: 'rgba(255,255,255,0.6)',
 }
