@@ -11,7 +11,7 @@ export default function ExplorePage() {
       <section style={styles.header}>
         <h1 style={styles.title}>Explore Programs</h1>
         <p style={styles.subtitle}>
-          Choose how you want to prepare for TEF / TCF
+          Choose a preparation path for TEF / TCF certification
         </p>
       </section>
 
@@ -22,20 +22,24 @@ export default function ExplorePage() {
         <div style={styles.card}>
           <h2 style={styles.cardTitle}>Quick Bites</h2>
 
+          <p style={styles.priceTag}>
+            Under $5 — cheaper than a coffee
+          </p>
+
           <p style={styles.text}>
-            Short targeted practice sessions for fast improvement.
+            Short focused practice sessions designed for daily improvement.
           </p>
 
           <ul style={styles.list}>
-            <li>A1 – Basic (€1–€2)</li>
-            <li>A2 – Elementary</li>
-            <li>B1 – Intermediate</li>
-            <li>B2 – Upper Intermediate</li>
-            <li>C1–C2 – Advanced</li>
+            <li>A1 – Beginner drills</li>
+            <li>A2 – Basic comprehension</li>
+            <li>B1 – Intermediate practice</li>
+            <li>B2 – Advanced practice</li>
+            <li>C1–C2 – Expert level</li>
           </ul>
 
           <p style={styles.small}>
-            Each includes Reading, Listening, Writing, Speaking.
+            Each includes Reading, Listening, Writing, and Speaking.
           </p>
 
           <button
@@ -50,8 +54,12 @@ export default function ExplorePage() {
         <div style={styles.card}>
           <h2 style={styles.cardTitle}>Subscriptions</h2>
 
+          <p style={styles.priceTag}>
+            Starting from $9.99 / month
+          </p>
+
           <p style={styles.text}>
-            Full structured learning paths for CLB levels.
+            Structured learning paths with full exam preparation.
           </p>
 
           <div style={styles.compareBox}>
@@ -72,41 +80,45 @@ export default function ExplorePage() {
           </div>
 
           <p style={styles.small}>
-            Includes full exam simulation + progress tracking + AI feedback.
+            Includes progress tracking, structured lessons, and AI feedback.
           </p>
 
           <button
             style={styles.button}
             onClick={() => router.push('/pricing')}
           >
-            View Plans
+            View Subscription Plans
           </button>
         </div>
 
-        {/* FULL EXAM MODE */}
+        {/* FULL EXAMS */}
         <div style={styles.card}>
-          <h2 style={styles.cardTitle}>Full Exam Mode</h2>
+          <h2 style={styles.cardTitle}>Full Exam Simulation</h2>
+
+          <p style={styles.priceTag}>
+            $30 per exam attempt
+          </p>
 
           <p style={styles.text}>
-            Real TEF/TCF simulation under exam conditions.
+            Real TEF / TCF exam simulation under strict timed conditions.
           </p>
 
           <ul style={styles.list}>
-            <li>Timed Reading Section</li>
+            <li>Full Reading Section</li>
             <li>Listening Simulation</li>
             <li>Writing Tasks</li>
-            <li>Speaking Practice</li>
+            <li>Speaking Evaluation</li>
           </ul>
 
           <p style={styles.small}>
-            Designed to replicate official exam pressure.
+            Designed to replicate official test environment and scoring pressure.
           </p>
 
           <button
             style={styles.button}
             onClick={() => router.push('/exam')}
           >
-            Start Exam
+            Start Full Exam
           </button>
         </div>
 
@@ -157,13 +169,21 @@ const styles = {
   cardTitle: {
     fontSize: 20,
     fontWeight: 500,
-    marginBottom: 10,
+    marginBottom: 6,
+  },
+
+  priceTag: {
+    fontSize: 14,
+    color: '#fff',
+    marginBottom: 12,
+    opacity: 0.9,
   },
 
   text: {
     color: 'rgba(255,255,255,0.6)',
     fontSize: 14,
     marginBottom: 15,
+    lineHeight: 1.5,
   },
 
   list: {
