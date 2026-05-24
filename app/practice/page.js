@@ -10,7 +10,7 @@ export default function PracticePage() {
       answer: 'Ottawa',
     },
     {
-      question: 'Which language is primarily tested in TEF Canada?',
+      question: 'Which language is mainly tested in TEF Canada?',
       options: ['Spanish', 'French', 'German', 'Italian'],
       answer: 'French',
     },
@@ -19,8 +19,8 @@ export default function PracticePage() {
       options: [
         'Driving License',
         'Immigration',
-        'Medical School',
         'Tourism',
+        'Medical School',
       ],
       answer: 'Immigration',
     },
@@ -66,7 +66,12 @@ export default function PracticePage() {
         >
           <h1>Practice Complete</h1>
 
-          <p style={{ marginTop: '20px', fontSize: '24px' }}>
+          <p
+            style={{
+              marginTop: '20px',
+              fontSize: '24px',
+            }}
+          >
             Your Score: {score} / {questions.length}
           </p>
 
@@ -112,7 +117,11 @@ export default function PracticePage() {
           Question {currentQuestion + 1} / {questions.length}
         </p>
 
-        <h1 style={{ marginTop: '20px' }}>
+        <h1
+          style={{
+            marginTop: '20px',
+          }}
+        >
           {questions[currentQuestion].question}
         </h1>
 
