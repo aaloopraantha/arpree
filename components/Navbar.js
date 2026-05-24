@@ -16,12 +16,12 @@ export default function Navbar() {
 
     getUser()
 
-    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+    const { data } = supabase.auth.onAuthStateChange(() => {
       getUser()
     })
 
     return () => {
-      listener.subscription.unsubscribe()
+      data.subscription.unsubscribe()
     }
   }, [])
 
@@ -39,42 +39,44 @@ export default function Navbar() {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '20px 60px',
-        borderBottom: '1px solid #111',
-        backgroundColor: '#000',
+        padding: '18px 60px',
+        background: 'rgba(0,0,0,0.7)',
+        backdropFilter: 'blur(14px)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
       }}
     >
       {/* LOGO */}
       <div
+        onClick={() => router.push('/')}
         style={{
-          fontSize: '20px',
+          fontSize: '18px',
           fontWeight: 500,
           cursor: 'pointer',
+          letterSpacing: '0.5px',
         }}
-        onClick={() => router.push('/')}
       >
         ARPREE
       </div>
 
-      {/* NAV LINKS */}
-      <div style={{ display: 'flex', gap: '25px', alignItems: 'center' }}>
-        <a href="/explore" style={linkStyle}>
+      {/* LINKS */}
+      <div style={{ display: 'flex', gap: '18px', alignItems: 'center' }}>
+        <a style={linkStyle} href="/explore">
           Explore
         </a>
 
         {!user ? (
           <>
-            <a href="/login" style={linkStyle}>
+            <a style={linkStyle} href="/login">
               Login
             </a>
 
-            <a href="/register" style={buttonStyle}>
+            <a style={buttonStyle} href="/register">
               Get Started
             </a>
           </>
         ) : (
           <>
-            <a href="/dashboard" style={linkStyle}>
+            <a style={linkStyle} href="/dashboard">
               Dashboard
             </a>
 
@@ -89,16 +91,16 @@ export default function Navbar() {
 }
 
 const linkStyle = {
-  color: '#aaa',
-  textDecoration: 'none',
+  color: 'rgba(255,255,255,0.65)',
   fontSize: '14px',
 }
 
 const buttonStyle = {
-  background: '#fff',
-  color: '#000',
-  padding: '10px 18px',
-  fontSize: '14px',
-  border: 'none',
+  background: 'rgba(255,255,255,0.08)',
+  color: '#fff',
+  padding: '10px 14px',
+  borderRadius: '14px',
+  border: '1px solid rgba(255,255,255,0.10)',
   cursor: 'pointer',
+  fontSize: '14px',
 }
