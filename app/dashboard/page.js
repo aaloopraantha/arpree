@@ -39,9 +39,16 @@ export default function DashboardPage() {
         padding: '40px',
       }}
     >
-      <h1>Student Dashboard</h1>
+      <h1 style={{ fontSize: '40px' }}>
+        Student Dashboard
+      </h1>
 
-      <p style={{ marginTop: '20px', color: '#aaa' }}>
+      <p
+        style={{
+          marginTop: '20px',
+          color: '#aaa',
+        }}
+      >
         Logged in as:
       </p>
 
@@ -69,6 +76,7 @@ export default function DashboardPage() {
           gap: '20px',
         }}
       >
+        {/* READING */}
         <div
           style={{
             background: '#111',
@@ -77,11 +85,32 @@ export default function DashboardPage() {
           }}
         >
           <h2>Reading Practice</h2>
-          <p style={{ color: '#aaa' }}>
-            Coming soon
+
+          <p
+            style={{
+              color: '#aaa',
+              marginTop: '10px',
+            }}
+          >
+            Start TEF/TCF reading exercises
           </p>
+
+          <a
+            href="/practice"
+            style={{
+              display: 'inline-block',
+              marginTop: '20px',
+              background: '#fff',
+              color: '#000',
+              padding: '10px 20px',
+              textDecoration: 'none',
+            }}
+          >
+            Start Practice
+          </a>
         </div>
 
+        {/* LISTENING */}
         <div
           style={{
             background: '#111',
@@ -90,11 +119,30 @@ export default function DashboardPage() {
           }}
         >
           <h2>Listening Practice</h2>
-          <p style={{ color: '#aaa' }}>
-            Coming soon
+
+          <p
+            style={{
+              color: '#aaa',
+              marginTop: '10px',
+            }}
+          >
+            Audio-based TEF/TCF exercises
           </p>
+
+          <button
+            style={{
+              marginTop: '20px',
+              background: '#333',
+              color: '#fff',
+              padding: '10px 20px',
+              border: 'none',
+            }}
+          >
+            Coming Soon
+          </button>
         </div>
 
+        {/* WRITING */}
         <div
           style={{
             background: '#111',
@@ -103,9 +151,27 @@ export default function DashboardPage() {
           }}
         >
           <h2>Writing AI Feedback</h2>
-          <p style={{ color: '#aaa' }}>
-            Coming soon
+
+          <p
+            style={{
+              color: '#aaa',
+              marginTop: '10px',
+            }}
+          >
+            AI corrections for TEF writing tasks
           </p>
+
+          <button
+            style={{
+              marginTop: '20px',
+              background: '#333',
+              color: '#fff',
+              padding: '10px 20px',
+              border: 'none',
+            }}
+          >
+            Coming Soon
+          </button>
         </div>
       </div>
     </main>
