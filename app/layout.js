@@ -2,22 +2,14 @@ import './globals.css'
 import Navbar from '../components/Navbar'
 
 export const metadata = {
-  title: 'Arpree',
-  description: 'TEF & TCF Preparation Platform',
+  title: 'ARPREE — TEF & TCF Canada Preparation',
+  description: 'Practice TEF Canada and TCF Canada with structured lessons, exam simulations, progress tracking, and French skill practice.',
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        style={{
-          margin: 0,
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Arial, sans-serif',
-          background: '#000',
-          color: '#fff',
-        }}
-      >
+      <body>
         <Navbar />
         {children}
       </body>
