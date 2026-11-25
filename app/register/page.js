@@ -6,168 +6,27 @@ import { useRouter } from 'next/navigation'
 
 export default function RegisterPage() {
   const router = useRouter()
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
 
   async function register() {
-    setLoading(true)
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    })
-
+    setLoading(true); setError(''); setMessage('')
+    const { data, error: signupError } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } })
     setLoading(false)
-
-    if (!error) {
-      router.push('/dashboard')
-    } else {
-      alert(error.message)
-    }
+    if (signupError) return setError(signupError.message)
+    if (data.session) router.push('/dashboard')
+    else setMessage('Account created. Check your email to confirm your account, then log in.')
   }
 
   async function signInWithGoogle() {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/dashboard`,
-      },
-    })
+    setError('')
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: `${window.location.origin}/dashboard` } })
+    if (oauthError) setError(oauthError.message)
   }
 
-  return (
-    <main style={styles.container}>
-      <div style={styles.card}>
-        <h1 style={styles.title}>Create Account</h1>
-
-        <p style={styles.subtitle}>
-          Start your TEF / TCF preparation journey
-        </p>
-
-        <input
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        <input
-          style={styles.input}
-          placeholder="Password"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-
-        <button style={styles.primaryBtn} onClick={register}>
-          {loading ? 'Creating Account...' : 'Create Account'}
-        </button>
-
-        <div style={styles.divider}>or</div>
-
-        <button style={styles.googleBtn} onClick={signInWithGoogle}>
-          Continue with Google
-        </button>
-
-        {/* FIXED LOGIN LINK */}
-        <p style={styles.footerText}>
-          Already have an account?{' '}
-          <span
-            onClick={() => router.push('/login')}
-            style={styles.link}
-          >
-            Login
-          </span>
-        </p>
-      </div>
-    </main>
-  )
-}
-
-const styles = {
-  container: {
-    minHeight: '100vh',
-    background: '#000',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-
-  card: {
-    width: 380,
-    padding: 30,
-    borderRadius: 18,
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    backdropFilter: 'blur(14px)',
-  },
-
-  title: {
-    fontSize: 26,
-    fontWeight: 500,
-    marginBottom: 8,
-  },
-
-  subtitle: {
-    fontSize: 14,
-    color: 'rgba(255,255,255,0.6)',
-    marginBottom: 20,
-  },
-
-  input: {
-    width: '100%',
-    padding: 12,
-    marginTop: 10,
-    borderRadius: 14,
-    border: '1px solid rgba(255,255,255,0.12)',
-    background: 'rgba(255,255,255,0.04)',
-    color: '#fff',
-    outline: 'none',
-  },
-
-  primaryBtn: {
-    width: '100%',
-    marginTop: 15,
-    padding: 12,
-    borderRadius: 14,
-    border: 'none',
-    background: '#fff',
-    color: '#000',
-    cursor: 'pointer',
-    fontSize: 14,
-  },
-
-  googleBtn: {
-    width: '100%',
-    marginTop: 10,
-    padding: 12,
-    borderRadius: 14,
-    border: '1px solid rgba(255,255,255,0.12)',
-    background: 'rgba(255,255,255,0.08)',
-    color: '#fff',
-    cursor: 'pointer',
-    fontSize: 14,
-  },
-
-  divider: {
-    textAlign: 'center',
-    margin: '15px 0',
-    color: 'rgba(255,255,255,0.5)',
-    fontSize: 12,
-  },
-
-  footerText: {
-    marginTop: 15,
-    fontSize: 12,
-    color: 'rgba(255,255,255,0.5)',
-    textAlign: 'center',
-  },
-
-  link: {
-    color: '#fff',
-    cursor: 'pointer',
-    textDecoration: 'underline',
-  },
+  return <main className="auth-wrap"><div className="auth-card"><span className="eyebrow">ARPREE</span><h1 style={{ margin: '12px 0 8px' }}>Create your account</h1><p className="muted">Save practice results and track your French progress.</p><div className="form" style={{ marginTop: 24 }}><input className="input" placeholder="Full name" value={name} onChange={(e)=>setName(e.target.value)} /><input className="input" placeholder="Email" type="email" autoComplete="email" value={email} onChange={(e)=>setEmail(e.target.value)} /><input className="input" placeholder="Password (8+ characters)" type="password" autoComplete="new-password" value={password} onChange={(e)=>setPassword(e.target.value)} /><button className="btn-primary" disabled={loading || password.length < 8 || !email} onClick={register}>{loading ? 'Creating account…' : 'Create account'}</button><div className="divider">or</div><button className="btn-secondary" onClick={signInWithGoogle}>Continue with Google</button>{error && <p className="error">{error}</p>}{message && <p className="success">{message}</p>}</div><p className="muted" style={{ marginTop: 18, fontSize: 13 }}>Already have an account? <button onClick={()=>router.push('/login')} style={{background:'none',border:0,color:'#fff',padding:0,textDecoration:'underline'}}>Log in</button></p></div></main>
 }
