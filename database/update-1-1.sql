@@ -1,5 +1,7 @@
 begin;
 alter table public.journal_profiles add column if not exists bio text, add column if not exists public_profile boolean not null default true, add column if not exists show_journals boolean not null default true, add column if not exists show_calendar boolean not null default false, add column if not exists joined timestamptz;
+grant select(bio,public_profile,show_journals,show_calendar,joined) on public.journal_profiles to anon,authenticated;
+grant insert(public_profile,show_journals,show_calendar),update(bio,public_profile,show_journals,show_calendar,joined) on public.journal_profiles to authenticated;
 create table if not exists public.journal_preferences (
  user_id uuid primary key references public.journal_profiles(id) on delete cascade,
  level text check(level in ('A1','A2','B1','B2','C1','C2') or level is null), bio text not null default '' check(char_length(bio)<=240),
